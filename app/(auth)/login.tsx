@@ -61,7 +61,10 @@ export default function LoginScreen() {
         />
 
         <Pressable onPress={handleLogin} disabled={loading} className="mt-6">
-          <LinearGradient colors={['#3B82F6', '#2563EB']} className="rounded-xl p-4 items-center">
+          <LinearGradient
+            colors={['#3B82F6', '#2563EB']}
+            style={{ borderRadius: 12, padding: 16, alignItems: 'center' }}
+          >
             <Text className="text-white text-lg font-bold">{loading ? 'Signing in...' : 'Sign In'}</Text>
           </LinearGradient>
         </Pressable>
