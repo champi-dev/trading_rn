@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Tabs } from 'expo-router';
 import { View, Text, Pressable } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
@@ -11,9 +11,21 @@ const TAB_ITEMS = [
   { name: 'profile', label: 'Profile', Icon: ProfileIcon },
 ];
 
+const SPRING_CONFIG = { damping: 15, stiffness: 150 };
+
 function CustomTabBar({ state, descriptors, navigation }: any) {
   const indicatorX = useSharedValue(0);
   const indicatorW = useSharedValue(0);
+  const tabLayouts = useRef<{ x: number; width: number }[]>([]);
+
+  // Update indicator whenever the active tab changes
+  useEffect(() => {
+    const layout = tabLayouts.current[state.index];
+    if (layout) {
+      indicatorX.value = withSpring(layout.x + layout.width * 0.2, SPRING_CONFIG);
+      indicatorW.value = withSpring(layout.width * 0.6, SPRING_CONFIG);
+    }
+  }, [state.index]);
 
   const indicatorStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: indicatorX.value }],
@@ -47,9 +59,10 @@ function CustomTabBar({ state, descriptors, navigation }: any) {
             onPress={onPress}
             onLayout={(e) => {
               const { x, width } = e.nativeEvent.layout;
+              tabLayouts.current[index] = { x, width };
               if (isFocused) {
-                indicatorX.value = withSpring(x + width * 0.2, { damping: 15, stiffness: 150 });
-                indicatorW.value = withSpring(width * 0.6, { damping: 15, stiffness: 150 });
+                indicatorX.value = withSpring(x + width * 0.2, SPRING_CONFIG);
+                indicatorW.value = withSpring(width * 0.6, SPRING_CONFIG);
               }
             }}
             className="flex-1 items-center justify-center gap-1"
