@@ -181,3 +181,7 @@ trading_rn/
 │
 └── README.md
 ```
+
+## Server deployment
+
+The backend is deployed in the champi docker-compose stack — see [SERVER_DEPLOYMENT.md](SERVER_DEPLOYMENT.md) for the live URL, env, seeds, and how to point the mobile app at it.
