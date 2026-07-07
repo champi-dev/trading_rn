@@ -5,6 +5,7 @@ The API is deployed as part of the champi docker-compose stack.
 | | |
 |---|---|
 | Compose service / container | `trading-backend` |
+| Public base URL | `https://trading.champi.lat` |
 | Local base URL | `http://127.0.0.1:8094` (API prefix `/api`) |
 | Stack | Express (plain JS), better-sqlite3 |
 | Database | SQLite file at `/app/data/app.db`, persisted in the `trading_data` volume |
