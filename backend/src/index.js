@@ -32,6 +32,11 @@ app.use(
 );
 
 // Routes
+// App-store requirement: privacy policy reachable in a browser
+app.get('/privacy', (_req, res) =>
+  res.sendFile(require('path').resolve(process.cwd(), 'public', 'privacy.html'))
+);
+
 app.use('/api/auth', authRoutes);
 app.use('/api/market', marketRoutes);
 app.use('/api/trade', tradingRoutes);
